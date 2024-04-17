@@ -2,9 +2,10 @@
   "name": "cherry-stem",
   "version": "0.1.0",
   "description": "Markdown-driven note-taking website platform",
-  "main": "index.js",
+  "type": "module",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server.mjs"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/wikitopian/cherry-stem/issues"
   },
-  "homepage": "https://github.com/wikitopian/cherry-stem#readme"
+  "homepage": "https://github.com/wikitopian/cherry-stem#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
 }
