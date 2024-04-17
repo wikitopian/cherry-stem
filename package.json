@@ -1,0 +1,23 @@
+{
+  "name": "cherry-stem",
+  "version": "0.1.0",
+  "description": "Markdown-driven note-taking website platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikitopian/cherry-stem.git"
+  },
+  "keywords": [
+    "markdown",
+    "notes"
+  ],
+  "author": "wikitopian",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/wikitopian/cherry-stem/issues"
+  },
+  "homepage": "https://github.com/wikitopian/cherry-stem#readme"
+}
