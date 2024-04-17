@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Markdown-driven note-taking website platform",
   "type": "module",
-  "main": "index.mjs",
+  "main": "server.mjs",
   "scripts": {
     "server": "nodemon server.mjs"
   },
