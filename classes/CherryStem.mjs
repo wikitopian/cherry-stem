@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 
 import express from "express";
 
@@ -17,9 +17,17 @@ export default class CherryStem {
 
   doServe(CS_PORT) {
     const app = express();
+    app.set("view engine", "ejs");
 
-    app.get("/", (req, res) => res.send("Hello, world!"));
+    app.get(/^[^.]*$/, (req, res) => res.render("cs", this.doRender(req.path)));
+
+    app.all("*", (req, res) => res.status(404).send());
 
     app.listen(CS_PORT, () => console.info(`CherryStem running on ${CS_PORT}`));
+  }
+
+  doRender(path) {
+
+    return { title: path };
   }
 }
