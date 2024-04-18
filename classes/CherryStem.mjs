@@ -1,8 +1,10 @@
-import 'dotenv/config';
+import "dotenv/config";
+
+import { dirname } from "path";
 
 import express from "express";
 
-export default class CherryStem {
+export default class {
   constructor() {
     const { CS_PORT } = process.env;
 
@@ -19,17 +21,14 @@ export default class CherryStem {
     const app = express();
     app.set("view engine", "ejs");
 
-    const wd = import.meta.dirname.replace(/\/classes$/, "");
+    const wd = dirname(".").replace(/\/classes$/, "");
     app.use("/scripts", express.static(`${wd}/scripts/`));
     app.use("/styles", express.static(`${wd}/styles/`));
     app.use("/media", express.static(`${wd}/media/`));
 
     const dist = `${wd}/node_modules/cherry-markdown/dist/`;
 
-    app.use(
-      "/modules/fonts",
-      express.static(`${dist}/fonts`),
-    );
+    app.use("/modules/fonts", express.static(`${dist}/fonts`));
 
     app.use(
       "/modules/cherry-markdown.min.css",
@@ -50,7 +49,6 @@ export default class CherryStem {
   }
 
   doRender(path) {
-
     return { title: path };
   }
 }
