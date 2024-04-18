@@ -1,32 +1,34 @@
 // eslint-disable-next-line
 import Cherry from "../modules/cherry-markdown.esm.js";
 
-class CherryStemSite {
-  doInit() {
-    console.log("init");
-  }
-
-  doChange(text) {
-    console.log(text);
-  }
-}
-
 class CherryStem {
   constructor() {
-    const site = new CherryStemSite();
+    this.changed = false;
+
+    const afterChange = (text) => {
+      document.cherryStem.text = text;
+      document.cherryStem.changed = true;
+    };
 
     this.cherry = new Cherry({
       id: "markdown",
       locale: "en_US",
+      callback: { afterChange },
+      theme: "dark",
 
       toolbars: {
         toolbar: ["bold", "italic", "color", "|", "list", "panel", "detail"],
       },
-
-      callback: { afterChange: site.doChange, afterInit: site.doInit },
     });
 
-    this.cherry.setTheme("dark");
+    setInterval(CherryStem.doRefresh, 1000);
+  }
+
+  static doRefresh() {
+    if (!document.cherryStem.changed) return;
+    document.cherryStem.changed = false;
+
+    console.log(document.cherryStem.text);
   }
 }
 
