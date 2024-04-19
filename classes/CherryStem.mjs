@@ -3,6 +3,7 @@ import "dotenv/config";
 import { dirname } from "path";
 
 import express from "express";
+import { WebSocketServer } from "ws";
 
 export default class {
   constructor() {
@@ -14,7 +15,8 @@ export default class {
       return;
     }
 
-    this.doServe(CS_PORT);
+    const server = this.doServe(CS_PORT);
+    this.doSocket(server);
   }
 
   doServe(CS_PORT) {
@@ -45,10 +47,33 @@ export default class {
 
     app.all("*", (req, res) => res.status(404).send());
 
-    app.listen(CS_PORT, () => console.info(`CherryStem running on ${CS_PORT}`));
+    return app.listen(CS_PORT, console.info(`CherryStem (${CS_PORT})`));
+  }
+
+  doSocket(server) {
+    const wss = new WebSocketServer({ noServer: true });
+
+    server.on("upgrade", (req, socket, head) =>
+      wss.handleUpgrade(req, socket, head, (ws) =>
+        wss.emit("connection", ws, req),
+      ),
+    );
+
+    wss.on("connection", (ws, req) => this.doNewPage(ws, req));
   }
 
   doRender(path) {
     return { title: path };
+  }
+
+  doNewPage(ws, req) {
+    ws.send("TODO: Retrieve from database");
+
+    ws.onmessage = (event) =>
+      this.doUpdate(req.url.replace(".ws", ""), event.data);
+  }
+
+  doUpdate(page, text) {
+    console.log("TODO: Update database. ", page, "::", text);
   }
 }

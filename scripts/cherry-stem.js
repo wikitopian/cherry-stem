@@ -21,6 +21,14 @@ class CherryStem {
       },
     });
 
+    const { protocol, host, pathname } = window.location;
+    const wsProtocol = protocol === "https:" ? "wss:" : "ws:";
+    this.ws = new WebSocket(`${wsProtocol}//${host}${pathname}.ws`);
+
+    this.ws.onmessage = (e) => {
+      document.cherryStem.cherry.setValue(e.data);
+    };
+
     setInterval(CherryStem.doRefresh, 1000);
   }
 
@@ -28,7 +36,7 @@ class CherryStem {
     if (!document.cherryStem.changed) return;
     document.cherryStem.changed = false;
 
-    console.log(document.cherryStem.text);
+    document.cherryStem.ws.send(document.cherryStem.text);
   }
 }
 
