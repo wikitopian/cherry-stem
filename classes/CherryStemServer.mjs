@@ -2,7 +2,7 @@ import { dirname } from "path";
 import express from "express";
 
 export default class CherryStemServer {
-  constructor(port) {
+  constructor(port, refreshRate) {
     const app = express();
     app.set("view engine", "ejs");
 
@@ -26,15 +26,16 @@ export default class CherryStemServer {
     );
 
     // serve everything without a period, including index, as an editable page
-    app.get(/^[^.]*$/, (req, res) => res.render("cs", this.doRender(req.path)));
+    app.get(/^[^.]*$/, (req, res) =>
+      res.render("cs", this.doRender(req.path, refreshRate)));
 
     app.all("*", (req, res) => res.status(404).send());
 
     this.server = app.listen(port, console.info(`CherryStem (${port})`));
   }
 
-  doRender(path) {
-    return { title: path };
+  doRender(title, refreshRate) {
+    return { title, refreshRate };
   }
 
   getServer() {

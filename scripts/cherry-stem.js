@@ -29,7 +29,7 @@ class CherryStem {
       document.cherryStem.cherry.setValue(e.data);
     };
 
-    setInterval(CherryStem.doRefresh, 1000);
+    setInterval(CherryStem.doRefresh, document.cherryStemRefreshRate);
   }
 
   static doRefresh() {
