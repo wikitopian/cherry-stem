@@ -1,6 +1,6 @@
 {
   "name": "cherry-stem",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Markdown-driven note-taking website platform",
   "type": "module",
   "main": "server.mjs",
