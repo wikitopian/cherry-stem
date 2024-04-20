@@ -28,35 +28,34 @@ Here's an example of an nginx reverse proxy configuration that successfully
 handles the websocket.
 
 	map $http_upgrade $connection_upgrade {
-			default upgrade;
-			'' close;
+		default upgrade;
+		'' close;
 	}
-
+	
 	server {
-			listen 80;
-			server_name notes.example.com;
+		listen 80;
+		server_name notes.example.com;
 	 
-			rewrite ^/(.*)$ https://notes.example.com/$1 permanent;
+		rewrite ^/(.*)$ https://notes.example.com/$1 permanent;
 	}
-
+	
 	server {
-			listen 443 ssl;
-			server_name notes.example.com;
-
-			ssl_certificate         ssl/example.com.pem;
-			ssl_certificate_key     ssl/example.com.key;
-
-			location ~ \.ws$ {
-					proxy_http_version 1.1;
-					proxy_set_header Upgrade $http_upgrade;
-					proxy_set_header Connection $connection_upgrade;
-					proxy_pass http://127.0.0.1:3000;
-			}
-
-
-			location / {
-					proxy_pass http://127.0.0.1:3000/;
-			}
+		listen 443 ssl;
+		server_name notes.example.com;
+	
+		ssl_certificate         ssl/example.com.pem;
+		ssl_certificate_key     ssl/example.com.key;
+	
+		location ~ \.ws$ {
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection $connection_upgrade;
+			proxy_pass http://127.0.0.1:3000;
+		}
+	
+		location / {
+			proxy_pass http://127.0.0.1:3000/;
+		}
 	}
 
 ## Contributions
