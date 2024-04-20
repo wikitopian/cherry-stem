@@ -4,6 +4,9 @@
 			"version": "999.999.999"
 		}
 	},
+	"parserOptions": {
+		"ecmaVersion": "2023"
+	},
 	"extends": ["airbnb", "prettier", "plugin:node/recommended"],
 	"env": {
 		"browser": true,
@@ -19,6 +22,7 @@
 		"max-classes-per-file": "off",
 		"import/no-named-as-default": "off",
 		"import/extensions": "off",
-		"no-param-reassign": ["error", { "props": false }]
+		"no-param-reassign": ["error", { "props": false }],
+		"no-restricted-syntax": "off"
 	}
 }

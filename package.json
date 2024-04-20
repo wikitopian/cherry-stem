@@ -4,6 +4,9 @@
   "description": "Markdown-driven note-taking website platform",
   "type": "module",
   "main": "server.mjs",
+  "engines": {
+    "node": ">=21"
+  },
   "scripts": {
     "server": "nodemon server.mjs"
   },
@@ -22,6 +25,7 @@
   },
   "homepage": "https://github.com/wikitopian/cherry-stem#readme",
   "dependencies": {
+    "better-sqlite3": "^9.5.0",
     "cherry-markdown": "^0.8.40",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",

@@ -1,0 +1,10 @@
+-- TX: createTables
+BEGIN TRANSACTION;
+
+CREATE TABLE IF NOT EXISTS pages (
+  pageId INTEGER PRIMARY KEY,
+  page TEXT UNIQUE,
+  body TEXT
+);
+
+END TRANSACTION;
