@@ -131,6 +131,9 @@ dist
 
 # cherry-stem custom
 package-lock.json
+
 cherry-stem.sqlite3
 cherry-stem.sqlite3-shm
 cherry-stem.sqlite3-wal
+
+cherry.options.json

@@ -1,0 +1,8 @@
+{
+  "id": "markdown",
+  "locale": "en_US",
+
+  "toolbars": {
+    "toolbar": ["bold", "italic", "color", "|", "list", "panel", "detail"]
+  }
+}

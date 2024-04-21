@@ -10,17 +10,27 @@ delivers it as a service, permitting one to take notes that are persistent.
 
 The backend is sqlite. Requests for different database backends will be ignored.
 
-## Installation
+## Quick Start
 
 	~$ git clone https://github.com/wikitopian/cherry-stem
 	~$ cd cherry-stem
 	~$ npm install
 	~$ npm run server
 
-There is also a `dot.env.example` file that's a template. You can copy its
-contents to `.env` and modify them for your environment.
-
 ## Deployment
+
+### Service Configuration
+
+There is a `dot.env.example` file that's a template. You can copy its contents
+to `.env` and modify them for your environment.
+
+### Editor Configuration
+
+There is a `cherry.options.default.json` file that's a template. You can copy
+its contents to `cherry.options.json`, where your edits won't conflict with git.
+
+These are the options for the Cherry Markdown editor. Please refer to that
+separate project's documentation for configuration options.
 
 ### Nginx
 

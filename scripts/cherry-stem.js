@@ -5,22 +5,14 @@ class CherryStem {
   constructor() {
     this.changed = false;
 
-    const afterChange = (text) => {
-      document.cherryStem.text = text;
-      document.cherryStem.changed = true;
-    };
+    this.doSocket();
 
-    this.cherry = new Cherry({
-      id: "markdown",
-      locale: "en_US",
-      callback: { afterChange },
-      theme: "dark",
+    fetch("./cherry.options.json")
+      .then((response) => response.json())
+      .then((options) => this.doEditor(options));
+  }
 
-      toolbars: {
-        toolbar: ["bold", "italic", "color", "|", "list", "panel", "detail"],
-      },
-    });
-
+  doSocket() {
     const { protocol, host, pathname } = window.location;
     const wsProtocol = protocol === "https:" ? "wss:" : "ws:";
     this.ws = new WebSocket(`${wsProtocol}//${host}${pathname}.ws`);
@@ -28,6 +20,16 @@ class CherryStem {
     this.ws.onmessage = (e) => {
       document.cherryStem.cherry.setValue(e.data);
     };
+  }
+
+  doEditor(options) {
+    options.callback = {};
+    options.callback.afterChange = (text) => {
+      document.cherryStem.text = text;
+      document.cherryStem.changed = true;
+    };
+
+    this.cherry = new Cherry(options);
 
     setInterval(CherryStem.doRefresh, document.cherryStemRefreshRate);
   }
