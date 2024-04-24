@@ -18,18 +18,30 @@ export default class CherryStemServer {
     app.use("/styles", express.static(`${wd}/styles/`));
     app.use("/media", express.static(`${wd}/media/`));
 
-    const dist = `${wd}/node_modules/cherry-markdown/dist/`;
+    const cherry = `${wd}/node_modules/cherry-markdown/dist/`;
 
-    app.use("/modules/fonts", express.static(`${dist}/fonts`));
+    app.use("/modules/fonts", express.static(`${cherry}/fonts`));
 
     app.use(
       "/modules/cherry-markdown.min.css",
-      express.static(`${dist}/cherry-markdown.min.css`),
+      express.static(`${cherry}/cherry-markdown.min.css`),
     );
 
     app.use(
       "/modules/cherry-markdown.esm.js",
-      express.static(`${dist}/cherry-markdown.esm.js`),
+      express.static(`${cherry}/cherry-markdown.esm.js`),
+    );
+
+    app.use(
+      "/modules/cherry-markdown.esm.js",
+      express.static(`${cherry}/cherry-markdown.esm.js`),
+    );
+
+    app.use(
+      "/modules/bit-sync.mjs",
+      express.static(
+        `${wd}/node_modules/@matthewparrott/bit-sync/bit-sync.mjs`,
+      ),
     );
 
     // serve everything without a period, including index, as an editable page

@@ -1,5 +1,7 @@
 // eslint-disable-next-line
 import Cherry from "../modules/cherry-markdown.esm.js";
+// eslint-disable-next-line
+import BSync from "../modules/bit-sync.mjs";
 
 class CherryStem {
   constructor() {
@@ -37,6 +39,8 @@ class CherryStem {
   static doRefresh() {
     if (!document.cherryStem.changed) return;
     document.cherryStem.changed = false;
+
+    console.info(BSync.createChecksumDocument(1000, document.cherryStem.text));
 
     document.cherryStem.ws.send(document.cherryStem.text);
   }

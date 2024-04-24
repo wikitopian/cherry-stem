@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/wikitopian/cherry-stem#readme",
   "dependencies": {
+    "@matthewparrott/bit-sync": "^0.1.0",
     "better-sqlite3": "^9.5.0",
     "cherry-markdown": "^0.8.40",
     "dotenv": "^16.4.5",
