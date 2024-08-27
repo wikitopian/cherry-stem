@@ -3,12 +3,12 @@
   "version": "0.2.0",
   "description": "Markdown-driven note-taking website platform",
   "type": "module",
-  "main": "server.mjs",
+  "main": "server.js",
   "engines": {
     "node": ">=21"
   },
   "scripts": {
-    "server": "nodemon server.mjs"
+    "server": "nodemon --experimental-sqlite --env-file=env.default server.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,7 @@
   "homepage": "https://github.com/wikitopian/cherry-stem#readme",
   "dependencies": {
     "@matthewparrott/bit-sync": "^0.1.0",
-    "better-sqlite3": "^9.5.0",
     "cherry-markdown": "^0.8.40",
-    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "mermaid": "^10.9.0",

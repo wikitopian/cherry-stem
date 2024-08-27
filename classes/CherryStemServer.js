@@ -16,7 +16,7 @@ export default class CherryStemServer {
 
     app.use("/scripts", express.static(`${wd}/scripts/`));
     app.use("/styles", express.static(`${wd}/styles/`));
-    app.use("/media", express.static(`${wd}/media/`));
+    app.use("/", express.static(`${wd}/public/`));
 
     const cherry = `${wd}/node_modules/cherry-markdown/dist/`;
 

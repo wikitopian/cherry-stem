@@ -1,4 +1,4 @@
-import CherryStem from "./classes/CherryStem.mjs";
+import CherryStem from "./classes/CherryStem.js";
 
 const server = new CherryStem();
 export default server;

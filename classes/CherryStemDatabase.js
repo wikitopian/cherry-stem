@@ -1,12 +1,9 @@
 import fs from "fs";
-
-import BetterSqlite3 from "better-sqlite3";
+import { DatabaseSync } from 'node:sqlite';
 
 export default class CherryStemDatabase {
   constructor(folder, file) {
-    const sql = new BetterSqlite3(file);
-    sql.pragma("journal_mode = WAL");
-    sql.pragma("synchronous = NORMAL");
+    const sql = new DatabaseSync(file);
 
     const files = fs.readdirSync(folder);
     const code = files.map((f) => fs.readFileSync(folder + f, "utf8")).join("");

@@ -1,8 +1,6 @@
-import "dotenv/config";
-
-import Sql from "./CherryStemDatabase.mjs";
-import Web from "./CherryStemServer.mjs";
-import Skt from "./CherryStemSocket.mjs";
+import Sql from "./CherryStemDatabase.js";
+import Web from "./CherryStemServer.js";
+import Skt from "./CherryStemSocket.js";
 
 export default class {
   constructor() {
