@@ -1,5 +1,9 @@
 // eslint-disable-next-line
+import * as echarts from '../modules/addons/advance/cherry-table-echarts-plugin.js';
 import Cherry from "../modules/cherry-markdown.esm.js";
+
+window.echarts = echarts;
+
 // eslint-disable-next-line
 import BSync from "../modules/bit-sync.mjs";
 

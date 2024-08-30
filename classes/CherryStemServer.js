@@ -3,11 +3,11 @@ import { dirname } from "path";
 import express from "express";
 
 export default class CherryStemServer {
-  constructor(port, refreshRate) {
+  constructor(port) {
     const app = express();
-    app.set("view engine", "ejs");
-
     const wd = dirname(".").replace(/\/classes$/, "");
+
+    const tpl = fs.readFileSync(`${wd}/template/template.html`, "utf8");
 
     let options = `${wd}/cherry.options.json`;
     if (!fs.existsSync(options)) options = `${wd}/cherry.options.default.json`;
@@ -37,6 +37,8 @@ export default class CherryStemServer {
       express.static(`${cherry}/cherry-markdown.esm.js`),
     );
 
+    app.use("/modules/addons", express.static(`${cherry}/addons`));
+
     app.use(
       "/modules/bit-sync.mjs",
       express.static(
@@ -45,17 +47,11 @@ export default class CherryStemServer {
     );
 
     // serve everything without a period, including index, as an editable page
-    app.get(/^[^.]*$/, (req, res) =>
-      res.render("cs", this.doRender(req.path, refreshRate)),
-    );
+    app.get(/^[^.]*$/, (req, res) => res.send(tpl.replace("$TITLE", req.path)));
 
     app.all("*", (req, res) => res.status(404).send());
 
     this.server = app.listen(port, console.info(`CherryStem (${port})`));
-  }
-
-  doRender(title, refreshRate) {
-    return { title, refreshRate };
   }
 
   getServer() {

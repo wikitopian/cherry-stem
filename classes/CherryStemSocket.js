@@ -16,7 +16,7 @@ export default class CherryStemSocket {
 
   doGetPage(ws, req) {
     const page = req.url.replace(".ws", "");
-    const body = this.sql.getPage.pluck().get({ page });
+    const body = this.sql.getPage.get({ page }).body ?? "";
     ws.send(body);
 
     ws.onmessage = (event) =>

@@ -1,5 +1,5 @@
 import fs from "fs";
-import { DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from "node:sqlite";
 
 export default class CherryStemDatabase {
   constructor(folder, file) {
