@@ -7,11 +7,17 @@
 		<link rel="icon" href="/favicon.ico">
 		<link rel="stylesheet" href="/modules/cherry-markdown.min.css" />
 		<link rel="stylesheet" href="/styles/cherry-stem.css" />
-		<script src="/modules/bit-sync.mjs" type="module"></script>
-		<script async="async" src="/modules/cherry-markdown.esm.js" type="module"></script>
 		<script type="text/javascript">
-			document.cherryStemRefreshRate = 3000;
+
+document.cherryStem = {};
+document.cherryStem.patchRate = 3000;
+
+fetch(`${window.location.pathname}.md`)
+  .then((response) => response.text())
+  .then((markdown) => document.cherryStem.lastCache = markdown);
+
 		</script>
+		<script async="async" src="/modules/cherry-markdown.esm.js" type="module"></script>
 		<script async="async" src="/scripts/cherry-stem.js" type="module" /></script>
 	</head>
 	<body>

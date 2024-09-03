@@ -23,6 +23,8 @@
 		"import/no-named-as-default": "off",
 		"import/extensions": "off",
 		"no-param-reassign": ["error", { "props": false }],
-		"no-restricted-syntax": "off"
+		"no-restricted-syntax": "off",
+		"import/no-unresolved": "off",
+		"node/no-missing-import": "off"
 	}
 }

@@ -1,9 +1,9 @@
--- PREPARE: getPage
+-- PREPARE: getDoc
 SELECT
-	body
-FROM pages
-WHERE page = @page;
-
--- PREPARE: setPage
-INSERT INTO pages(page, body) VALUES (@page, @body)
-	ON CONFLICT(page) DO UPDATE SET body = @body;
+	dox.mdwn
+	FROM pgs
+	LEFT JOIN dox
+	ON dox.pgId = pgs.pgId
+	WHERE pgs.path = $path
+	ORDER BY dox.stmp DESC
+	LIMIT 1;

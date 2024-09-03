@@ -4,50 +4,59 @@ import Cherry from "../modules/cherry-markdown.esm.js";
 
 window.echarts = echarts;
 
-// eslint-disable-next-line
-import BSync from "../modules/bit-sync.mjs";
-
 class CherryStem {
   constructor() {
     this.changed = false;
 
-    this.doSocket();
+    // this.doSocket();
 
     fetch("./cherry.options.json")
       .then((response) => response.json())
       .then((options) => this.doEditor(options));
   }
 
+  /*
   doSocket() {
     const { protocol, host, pathname } = window.location;
     const wsProtocol = protocol === "https:" ? "wss:" : "ws:";
     this.ws = new WebSocket(`${wsProtocol}//${host}${pathname}.ws`);
 
-    this.ws.onmessage = (e) => {
-      document.cherryStem.cherry.setValue(e.data);
-    };
+    this.ws.addEventListener("open", () => this.ws.send(JSON.stringify({ command: "getDoc" })));
+
+    this.ws.addEventListener("message", (msg) => {
+      const { command, data } = JSON.parse(msg.data);
+      console.log(msg.data);
+      document.cherryStem[command](data);
+    });
+
+    // this.ws.onmessage = (e) => document.cherryStem.cherry.setValue(e.data);
   }
 
+  setDoc(doc) {
+    console.log(doc);
+  }
+  */
+
   doEditor(options) {
+    options.value = document.cherryStem.lastCache;
     options.callback = {};
-    options.callback.afterChange = (text) => {
-      document.cherryStem.text = text;
+    options.callback.afterChange = () => {
       document.cherryStem.changed = true;
     };
 
     this.cherry = new Cherry(options);
 
-    setInterval(CherryStem.doRefresh, document.cherryStemRefreshRate);
+    setInterval(CherryStem.doRefresh, document.cherryStem.refreshRate);
   }
 
   static doRefresh() {
     if (!document.cherryStem.changed) return;
     document.cherryStem.changed = false;
 
-    console.info(BSync.createChecksumDocument(1000, document.cherryStem.text));
+    // console.log("CHANGE");
 
-    document.cherryStem.ws.send(document.cherryStem.text);
+    // document.cherryStem.ws.send(document.cherryStem.text);
   }
 }
 
-document.cherryStem = new CherryStem();
+document.cherryStem.stem = new CherryStem();

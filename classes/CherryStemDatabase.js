@@ -9,13 +9,12 @@ export default class CherryStemDatabase {
     const code = files.map((f) => fs.readFileSync(folder + f, "utf8")).join("");
 
     const txs = this.getTransactions(code);
-    for (const { groups } of txs)
-      this[groups.name] = () => sql.exec(groups.sql);
+    for (const { groups: tx } of txs) this[tx.name] = () => sql.exec(tx.sql);
 
     this.createTables();
 
-    const stmts = this.getStatements(code);
-    for (const { groups } of stmts) this[groups.name] = sql.prepare(groups.sql);
+    const sts = this.getStatements(code);
+    for (const { groups: st } of sts) this[st.name] = sql.prepare(st.sql);
   }
 
   getTransactions(code) {

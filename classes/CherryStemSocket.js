@@ -11,19 +11,34 @@ export default class CherryStemSocket {
       ),
     );
 
-    wss.on("connection", (ws, req) => this.doGetPage(ws, req));
+    wss.on("connection", (ws, req) => this.onConnection(ws, req));
   }
 
-  doGetPage(ws, req) {
-    const page = req.url.replace(".ws", "");
-    const body = this.sql.getPage.get({ page }).body ?? "";
-    ws.send(body);
+  onConnection(ws, req) {
+    const $pageId = this.getPageId(req.url.replace(".ws", ""));
+    ws.session = { id: this.doNewSession($pageId) };
+    const setDoc = JSON.stringify({ command: "setDoc", data: new ArrayBuffer(42) });
+    ws.send(setDoc);
 
-    ws.onmessage = (event) =>
-      this.doUpdate(req.url.replace(".ws", ""), event.data);
+    ws.onmessage = (event) => this.onMessage($pageId, event.data);
   }
 
-  doUpdate(page, body) {
-    this.sql.setPage.run({ page, body });
+  getPageId($uri) {
+    return this.sql.getPageId.get({ $uri }).pageId;
+  }
+
+  doNewSession($pageId) {
+    // const proc = this.sql.doNewSession.run({ $pageId });
+    // console.log(proc);
+  }
+
+  onMessage(page, data) {
+    // console.log(page, data);
+  }
+
+  addPatch(uri, $sessionId, $patch) {
+    const $docId = this.sql.getDocId.get({ $uri });
+    // console.log("docId", docId);
+    this.sql.setPage.run({ $docId, $sessionId, $patch });
   }
 }

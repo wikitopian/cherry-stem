@@ -1,6 +1,6 @@
 # Cherry Stem
 
-Markdown-driven note-taking website platform
+Collaborative markdown-driven note-taking platform
 
 ## Introduction
 

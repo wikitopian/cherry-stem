@@ -3,7 +3,7 @@ import { dirname } from "path";
 import express from "express";
 
 export default class CherryStemServer {
-  constructor(port) {
+  constructor(port, refreshRate, sql) {
     const app = express();
     const wd = dirname(".").replace(/\/classes$/, "");
 
@@ -48,6 +48,12 @@ export default class CherryStemServer {
 
     // serve everything without a period, including index, as an editable page
     app.get(/^[^.]*$/, (req, res) => res.send(tpl.replace("$TITLE", req.path)));
+
+    app.get(/^[^.]*\.md$/, (req, res) => {
+      res.set("Content-Type", "text/markdown; charset=UTF-8");
+      res.setHeader("Cache-Control", "public, max-age=3600");
+      res.send(sql.getDoc.get({ $path: req.path }).mdwn);
+    });
 
     app.all("*", (req, res) => res.status(404).send());
 

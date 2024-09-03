@@ -10,7 +10,7 @@ export default class {
     const refreshRate = process.env.CS_REFRESH_RATE ?? 10000;
 
     this.sql = new Sql(sqlFolder, sqlFile);
-    this.web = new Web(port, refreshRate);
+    this.web = new Web(port, refreshRate, this.sql);
     this.skt = new Skt(this.sql, this.web.getServer());
   }
 }
